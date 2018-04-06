@@ -1,0 +1,44 @@
+{% extends "page.html" %}
+
+{% block main %}
+
+<div class="container">
+    <div class="text-center">
+        <p style="font-weight:bold" >Our platform is configured to authenticate users by Github OAuth ONLY. So the only way to access Jupyter platform is using your Github account, which has to be registered on the platform by the administrator(s).
+            To ensure your account security, when you sign in the platform for the first time, you will see something just like this:</p>
+        <img src="../static/images/OAuth.png" width="700" height="500" >
+        <p style="font-weight:bold;">Please confirm the information marked by red rectangles(especially the App Name, Privileges and the links/urls) are absolutely the same with the information below or it is a fake one and do NOT grant any privilege.</p>
+    </div>
+
+    <div class="text-center">
+        <table class="table table-striped" align="center" ><thead><tr><th style="text-align:center">Item	</th>
+            <th scope="col" style="text-align:center;">Details</th>
+        </tr></thead>
+            <tbody ><tr><td>App Name</td>    <td >Jupyter Notebook Support @Dawn-Team</td></tr>
+            <tr><td>The Privileges</td>    <td >Public data only</td></tr>
+            <tr><td>Redirect Url</td>  <td ><a href="https://hub.dawn-team.online:8888">https://hub.dawn-team.online:8888</a> </td></tr></tbody></table>
+    </div>
+
+    <div class="row">
+        <div class="text-center">
+            {% if user.running %}
+            <a id="stop" role="button" class="btn btn-lg btn-danger">Stop My Server</a>
+            {% endif %}
+            <a id="start"role="button" class="btn btn-lg btn-success" href="{{ url }}">
+                {% if not user.running %}
+                Start
+                {% endif %}
+                My Server
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script type="text/javascript">
+    require(["home"]);
+</script>
+{% endblock %}
