@@ -12,12 +12,12 @@
 #     - [?] Bash Shell Client
 # 
 
-FROM tensorflow/tensorflow:1.6.0-gpu-py3
+FROM tensorflow/tensorflow:1.7.0-gpu-py3
 
 MAINTAINER Arvin Si.Chuan "arvinsc@foxmail.com"
 
 # Version Tag
-ENV REFRESHED_AT 2018-04-11-07:33:00 
+ENV REFRESHED_AT 2018-04-12-19:20:00 
 ENV VERSION V1.0.1-beta
 
 
@@ -43,10 +43,9 @@ RUN \
     openssh-server \
     python3 python3-pip \
     vim && \
-    DEBIAN_FRONTEND=noninteractive apt-mark hold cuda-cublas-9-0 && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade &&\
-    DEBIAN_FRONTEND=noninteractive apt-get -y autoremove && \
+    DEBIAN_FRONTEND=noninteractive apt-get -yqq upgrade && \
+    DEBIAN_FRONTEND=noninteractive apt-get -yqq dist-upgrade &&\
+    DEBIAN_FRONTEND=noninteractive apt-get -yqq autoremove && \
     DEBIAN_FRONTEND=noninteractive apt-get clean
     
     
@@ -55,9 +54,10 @@ ENV LANG en_US.UTF-8
 RUN update-locale LANG="en_US.UTF-8" LANGUAGE
 
 # Step 8. Install `python3-pip` and upgrade it to the latest
-RUN pip3 install --no-cache-dir pqi &&\
-    pqi use tuna && \
-    pip3 install --no-cache-dir --upgrade  pip 
+RUN pip3 install --no-cache-dir --upgrade  pip && \
+    pip3 install --no-cache-dir pqi &&\
+    pqi use tuna 
+
 
 
 # Step 9. Install application level packages from `python3-pip`
